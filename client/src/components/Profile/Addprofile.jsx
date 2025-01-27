@@ -23,7 +23,7 @@ const AddProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/profile/pro', formData);
+      const response = await axios.post('https://lsoys-2ob7.onrender.com/api/profile/pro', formData);
 
       console.log('Profile created:', response.data);
       setSuccess(true);
