@@ -15,7 +15,7 @@ const SearchForm = () => {
     setError("");
 
     try {
-      const response = await axios.get("http://localhost:5000/api/profile/users", {
+      const response = await axios.get("https://lsoys-2ob7.onrender.com/api/profile/", {
         params: { location, travelDate, gender },
       });
       setProfiles(response.data);
