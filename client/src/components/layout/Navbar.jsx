@@ -1,6 +1,5 @@
-// components/layout/Navbar.jsx
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -8,93 +7,120 @@ const Navbar = () => {
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/search", label: "Search" },
-    { href: "/profiles", label: "Profiles" },  
-    { href: "#messaging", label: "Messages" },
+    { href: "/profiles", label: "Profiles" },
+    // { href: "messaging", label: "Messages" },
     { href: "/addprofile", label: "Add Profile" },
   ];
 
   return (
     <>
       {/* Desktop Navbar */}
-      <nav className="d-none d-lg-block bg-light border-end vh-100 position-fixed" style={{ width: "250px" }}>
-        <div className="p-4">
+      <nav className={`navbar navbar-expand-lg navbar-light border-end fixed-top ${
+        isMobileMenuOpen ? 'bg-transparent backdrop-blur' : 'bg-light'
+      }`}
+      style={{
+        backdropFilter: isMobileMenuOpen ? 'blur(10px)' : 'none',
+        backgroundColor: isMobileMenuOpen ? 'rgba(255, 255, 255, 0.8)' : ''
+      }}>
+        <div className="container-fluid px-3">
           <img
             src="https://www.workaway.info/gfx/2015/logo_main.svg"
-            alt="Logo"
-            className="img-fluid mb-4"
-            style={{ maxHeight: "50px" }}
+            alt="Workaway Logo"
+            className="navbar-brand img-fluid"
+            style={{ maxHeight: "40px" }}
           />
-          <ul className="nav flex-column">
-            {navItems.map((item) => (
-              <li className="nav-item mb-2" key={item.label}>
-                <Link to={item.href} className="nav-link text-dark fw-medium">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="border-top p-4 position-absolute bottom-0 start-0 w-100">
-          <div className="d-flex align-items-center">
-            <img
-              src="https://avatar.iran.liara.run/public"
-              alt="Profile"
-              className="rounded-circle me-3"
-              style={{ width: "40px", height: "40px" }}
-            />
-            <div>
-              <p className="mb-0 fw-semibold text-dark">John Doe</p>
-              <small className="text-muted">john@example.com</small>
-            </div>
+          
+          {/* Mobile Toggle Button */}
+          <button
+            className="navbar-toggler border-0 d-lg-none"
+            type="button"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-controls="navbarContent"
+            aria-expanded={isMobileMenuOpen}
+            aria-label="Toggle navigation"
+          >
+            <span 
+              className="fs-4 fw-bold" 
+              style={{ 
+                color: isMobileMenuOpen ? '#0d6efd' : '#6c757d',
+                transform: 'rotate(90deg)',
+                display: 'inline-block'
+              }}
+            >
+              {isMobileMenuOpen ? '×' : '⋮'}
+            </span>
+          </button>
+
+          {/* Desktop Menu Items */}
+          <div className="collapse navbar-collapse d-none d-lg-block" id="navbarContent">
+            <ul className="navbar-nav ms-auto">
+              {navItems.map((item) => (
+                <li className="nav-item me-3" key={item.label}>
+                  <NavLink
+                    to={item.href}
+                    className={({ isActive }) =>
+                      `nav-link ${isActive ? "text-primary fw-bold" : "text-dark"}`
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Navbar */}
-      <div className="d-lg-none position-fixed top-0 start-0 w-100 bg-light shadow-sm z-3">
-        <div className="d-flex align-items-center justify-content-between px-3 py-2">
-          <img
-            src="https://www.workaway.info/gfx/2015/logo_main.svg"
-            alt="Logo"
-            className="img-fluid"
-            style={{ maxHeight: "40px" }}
-          />
-          <button
-            className="btn btn-outline-secondary"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            <i className="bi bi-list fs-4"></i>
-          </button>
-        </div>
-      </div>
+      {/* Spacer for fixed navbar */}
+      <div style={{ height: "56px" }} aria-hidden="true"></div>
 
+      {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50">
-          <div className="bg-light vh-100 shadow-sm p-4" style={{ width: "250px" }}>
+        <div className="position-fixed top-0 start-0 w-100 h-100" 
+             style={{ 
+               zIndex: 1040,
+               backgroundColor: 'rgba(0, 0, 0, 0.3)',
+               backdropFilter: 'blur(4px)'
+             }}
+             onClick={() => setIsMobileMenuOpen(false)}
+             role="presentation"
+        >
+          {/* Mobile Menu Panel */}
+          <div 
+            className="bg-light h-100 shadow-sm p-4 ms-auto" 
+            style={{ 
+              width: "250px",
+              backgroundColor: 'rgba(255, 255, 255, 0.95)'
+            }}
+            onClick={e => e.stopPropagation()}
+          >
             <div className="d-flex justify-content-between align-items-center mb-4">
               <img
                 src="https://www.workaway.info/gfx/2015/logo_main.svg"
-                alt="Logo"
+                alt="Workaway Logo"
                 className="img-fluid"
                 style={{ maxHeight: "40px" }}
               />
               <button
-                className="btn btn-outline-secondary"
+                className="btn btn-outline-secondary border-0"
                 onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Close Menu"
               >
-                <i className="bi bi-x fs-4"></i>
+                <span className="fs-4 text-primary fw-bold">×</span>
               </button>
             </div>
             <ul className="nav flex-column">
               {navItems.map((item) => (
                 <li className="nav-item mb-2" key={item.label}>
-                  <Link
+                  <NavLink
                     to={item.href}
-                    className="nav-link text-dark fw-medium"
+                    className={({ isActive }) =>
+                      `nav-link ${isActive ? "text-primary fw-bold" : "text-dark"}`
+                    }
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.label}
-                  </Link>
+                  </NavLink>
                 </li>
               ))}
             </ul>

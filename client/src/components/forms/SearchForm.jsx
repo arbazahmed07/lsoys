@@ -15,7 +15,7 @@ const SearchForm = () => {
     setError("");
 
     try {
-      const response = await axios.get("http://localhost:5000/api/profile/users", {
+      const response = await axios.get("https://lsoys-2ob7.onrender.com/api/profile/", {
         params: { location, travelDate, gender },
       });
       setProfiles(response.data);
@@ -33,11 +33,11 @@ const SearchForm = () => {
         className="bg-white rounded shadow-lg p-4 mx-auto"
         style={{ maxWidth: "600px" }}
       >
-        <h3 className="text-center mb-4 fw-bold">Find Travel Buddies</h3>
+        <h3 className="text-center mb-4 fw-bold fs-4">Find Travel Buddies</h3>
         <form onSubmit={handleSubmit}>
           {/* Location Input */}
           <div className="mb-3">
-            <label className="form-label fw-bold">Location</label>
+            <label className="form-label fw-bold fs-6">Location</label>
             <input
               type="text"
               className="form-control"
@@ -49,7 +49,7 @@ const SearchForm = () => {
 
           {/* Travel Dates Input */}
           <div className="mb-3">
-            <label className="form-label fw-bold">Travel Dates</label>
+            <label className="form-label fw-bold fs-6">Travel Dates</label>
             <input
               type="date"
               className="form-control"
@@ -60,7 +60,7 @@ const SearchForm = () => {
 
           {/* Gender Dropdown */}
           <div className="mb-3">
-            <label className="form-label fw-bold">Gender</label>
+            <label className="form-label fw-bold fs-6">Gender</label>
             <select
               className="form-select"
               value={gender}
@@ -92,12 +92,12 @@ const SearchForm = () => {
         {/* Display Profiles */}
         <div className="mt-4">
           {profiles.length > 0 ? (
-            <div className="row">
+            <div className="row g-3">
               {profiles.map((profile) => (
-                <div className="col-md-4 mb-4" key={profile._id}>
-                  <div className="card">
+                <div className="col-sm-6 col-md-4" key={profile._id}>
+                  <div className="card h-100">
                     <div className="card-body">
-                      <h5 className="card-title">{profile.user?.name}</h5>
+                      <h5 className="card-title fs-6">{profile.user?.name}</h5>
                       <h6 className="card-subtitle mb-2 text-muted">
                         {profile.user?.email}
                       </h6>

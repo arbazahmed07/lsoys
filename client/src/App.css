@@ -1,0 +1,10 @@
+/* src/index.css or src/App.css */
+body {
+  background-image: url('https://www.workaway.info/gfx/header_travelbuddy_1.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-size: cover; 
+}

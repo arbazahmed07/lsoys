@@ -17,7 +17,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-dark text-light py-5 mt-5">
+    <footer className="bg-dark text-light py-5">
       <div className="container">
         {/* Top Section */}
         <div className="row mb-4">
