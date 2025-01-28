@@ -8,7 +8,7 @@ const Profiles = () => {
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const response = await axios.get('https://lsoys-2ob7.onrender.com/api/profile/');
+        const response = await axios.get('http://localhost:5000/api/profile/');
         if (Array.isArray(response.data)) {
           setProfiles(response.data);
         } else {
